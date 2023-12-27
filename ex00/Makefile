@@ -8,8 +8,6 @@ OBJ = $(SRC:%.cpp=$(OBJ_DIR)%.o)
 
 OBJ_DIR = obj/
 
-SAN_LDFLAGS = -L../LeakSanitizer -llsan -lc++ -Wno-gnu-include-next -I ../LeakSanitize
-
 FLAGS = -Werror -Wextra -Wall -std=c++98 -fsanitize=address
 
 PINK = \033[1;95m
@@ -22,7 +20,7 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(NAME): $(OBJ_DIR) $(OBJ)
-	@$(CP) $(OBJ) $(FLAGS) $(SAN_LDFLAGS) -o $(NAME)
+	@$(CP) $(OBJ) $(FLAGS) -o $(NAME)
 	@echo "$(GREEN)Compiled successfully!$(RESET)"
 
 $(OBJ_DIR)%.o: %.cpp

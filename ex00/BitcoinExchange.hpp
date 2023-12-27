@@ -2,6 +2,7 @@
 #include <iostream>
 #include <map>
 #include <algorithm>
+#include <fstream>
 #include "Data.hpp"
 #include "Date.hpp"
 

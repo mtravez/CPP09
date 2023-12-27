@@ -1,12 +1,22 @@
 #include "Date.hpp"
 
-bool isNumber(char *number)
+bool Date::isNumber(char *number, bool isDouble)
 {
 	int i = 0;
+	int d = 0;
 	while (number && number[i])
 	{
 		if (!isdigit(number[i]))
+		{
+			if (isDouble)
+				if (number[i] == '.' && !d && i != 0 && i != sizeof(number))
+				{
+					d++;
+					i++;
+					continue;
+				}
 			return false;
+		}
 		i++;
 	}
 	if (number)
@@ -16,7 +26,7 @@ bool isNumber(char *number)
 
 bool isYear(char *year, bool *leap)
 {
-	if (!isNumber(year))
+	if (!Date::isNumber(year, false))
 		return false;
 	int y = atoi(year);
 	if (y < 0)
@@ -28,7 +38,7 @@ bool isYear(char *year, bool *leap)
 
 int getMonth(char *month)
 {
-	if (!month || !isNumber(month))
+	if (!month || !Date::isNumber(month, false))
 		return 0;
 	int m = atoi(month);
 	if (m <= 0 || m > 12)
@@ -38,7 +48,7 @@ int getMonth(char *month)
 
 int getDay(char *day)
 {
-	if (!isNumber(day))
+	if (!Date::isNumber(day, false))
 		return 0;
 	int d = atoi(day);
 	if (d <= 0 || d > 31)
@@ -59,16 +69,20 @@ bool Date::isDateCorrect(std::string str) {
 	if (!month)
 		return false;
 	p = strtok(NULL, "-");
-//	std::cout << p << std::endl;
-	if (!isNumber(p))
+	if (!Date::isNumber(p, false))
 		return false;
 	int day = getDay(p);
 	if (!day)
 		return false;
 	int xmonths[7] = {1, 3, 5, 7, 8, 10, 12};
 	if (day == 31)
-		if (std::find(std::begin(xmonths), std::end(xmonths), month) == std::end(xmonths))
-			return false;
+		for (int i = 0; i < 7; i++)
+		{
+			if (month == xmonths[i])
+				break;
+			if (i == 6 && month != xmonths[i])
+				return false;
+		}
 	if (month == 2 && day > 28)
 	{
 		if (day == 29)

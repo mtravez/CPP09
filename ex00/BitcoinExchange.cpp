@@ -26,12 +26,17 @@ float BitcoinExchange::getValue(std::string value) {
 	float exRate = strtod(p, NULL);
 	if (errno == ERANGE)
 	{
-		std::cerr << "Error: wrong input => " << data << std::endl;
+		std::cerr << "Error: wrong input => " << p << std::endl;
 		return -1.0;
 	}
 	if (exRate < 0)
 	{
 		std::cerr << "Error: not a positive number" << std::endl;
+		return -1.0;
+	}
+	if (!Date::isNumber(p, true))
+	{
+		std::cerr << "Error: wrong input => " << p << std::endl;
 		return -1.0;
 	}
 	if (exRate > 1000)
@@ -43,7 +48,7 @@ float BitcoinExchange::getValue(std::string value) {
 }
 
 void BitcoinExchange::printData(std::string file) {
-	std::ifstream inputFile(file);
+	std::ifstream inputFile(file.c_str());
 	if (!inputFile)
 		throw (Data::UnavailableDataException());
 	std::string line;

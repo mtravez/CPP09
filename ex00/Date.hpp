@@ -2,9 +2,11 @@
 
 #include <iostream>
 #include <cstring>
+#include <cstdlib>
 
 class Date {
 public:
+	static bool isNumber(char *number, bool isDouble);
 	static bool isDateCorrect(std::string date);
 	class WrongDateException : public std::exception
 	{
