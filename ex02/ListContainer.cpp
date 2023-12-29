@@ -77,3 +77,64 @@ std::list<int>::iterator ListContainer::getPendChain(int i){
 	std::advance(it, i);
 	return it;
 }
+
+int ListContainer::getFromIndex(std::list<int> list, int index) {
+	std::list<int>::iterator it = list.begin();
+	std::advance(it, index);
+	if (it == list.end())
+		return -1;
+	return *it;
+}
+
+void changeIndex(int index, int nr, std::list<int> list)
+{
+	std::list<int>::iterator it = list.begin();
+	std::advance(it, index);
+	*it = nr;
+}
+void insertIndex(int index, int nr, std::list<int> list)
+{
+	std::list<int>::iterator it = list.begin();
+	std::advance(it, index);
+	list.insert(it, nr);
+}
+
+void ListContainer::sortPendChain() {
+	std::list<int> jacobstahl;
+	getJacobstahl(&jacobstahl, pendChain.size());
+
+	while (!jacobstahl.empty())
+	{
+		int index = jacobstahl.back() - 1;
+		int nr = getFromIndex(pendChain, index);
+		while (nr != -1)
+		{
+			int mainIndex = binarySearch(0, mainChain.size() - 1, nr, mainChain);
+//			mainChain.insert(mainChain.begin() + mainIndex, nr);
+			insertIndex(mainIndex, nr, mainChain);
+			changeIndex(index, -1, pendChain);
+			index--;
+			nr = getFromIndex(pendChain, index);
+		}
+		jacobstahl.pop_back();
+	}
+	std::list<int>::iterator it = pendChain.begin();
+	while (it != pendChain.end() && *it == -1)
+		it++;
+	while (it != pendChain.end())
+	{
+		int mainIndex = binarySearch(0, mainChain.size() - 1, *it, mainChain);
+//		mainChain.insert(mainChain.begin() + mainIndex, *it);
+		insertIndex(mainIndex, nr, mainChain);
+		*it = -1;
+		it++;
+	}
+}
+
+void ListContainer::checkStraggler() {
+	if (!holder[0])
+		return;
+	int mainIndex = binarySearch(0, mainChain.size() - 1, holder[1], mainChain);
+		insertIndex(mainIndex, nr, mainChain);
+//	mainChain.insert(mainChain.begin() + mainIndex, holder[1]);
+}

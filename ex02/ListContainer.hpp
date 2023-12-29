@@ -14,10 +14,12 @@ public:
 	~ListContainer();
 	ListContainer &operator=(const ListContainer &listContainer);
 	void setMainChain();
+	void sortPendChain();
 
 private:
 	void mergeTuples(std::list<std::pair<int, int> > left, std::list<std::pair<int, int> > right, std::list<std::pair<int, int> > &dest);
 	std::list<int>::iterator getMainChain(int i);
 	std::list<int>::iterator getPendChain(int i);
+	int getFromIndex(std::list<int> list, int index);
 
 };

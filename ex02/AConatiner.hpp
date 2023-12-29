@@ -23,6 +23,11 @@ public:
 		return this->container;
 	}
 
+	void printChain()
+	{
+		std::for_each(mainChain.begin(), mainChain.end(), printThing);
+	}
+
 	virtual void pushNumber(int nr){
 		if (holder[0] != 0)
 		{
@@ -66,10 +71,6 @@ public:
 		}
 		mergeSortTuples(temp1);
 		mergeSortTuples(temp2);
-		std::for_each(temp1.begin(), temp1.end(), printTuples);
-		std::cout << std::endl;
-		printTuples(temp1.back());
-		std::cout << "--------\n";
 		mergeTuples(temp1, temp2, toSort);
 	}
 
@@ -88,6 +89,26 @@ public:
 		std::for_each(pendChain.begin(), pendChain.end(), printThing);
 	}
 
+	int binarySearch(int min, int max, int nr, X list)
+	{
+		if (min > max)
+			return min;
+		int mid = min + ((max - min) / 2);
+		if (getFromIndex(list, mid) == nr)
+			return mid;
+		if (getFromIndex(list, mid) < nr)
+			return binarySearch(mid + 1, max, nr, list);
+		return binarySearch(min, mid - 1, nr, list);
+	}
+
+	virtual void sortPendChain()
+	{
+	}
+
+	virtual void checkStraggler()
+	{
+	}
+
 protected:
 	T container;
 	X mainChain;
@@ -96,49 +117,37 @@ protected:
 
 	virtual void mergeTuples(T left, T right, T &dest)
 	{
-//		unsigned long lSize = left.size();
-//		unsigned long rSize = right.size();
-//		unsigned long l = 0, r = 0, d = 0;
-//		while (l < lSize && r < rSize)
-//		{
-//			if (left[l] < right[r])
-//			{
-//				dest[d] = left[l];
-//				l++;
-//			}
-//			else
-//			{
-//				dest[d] = right[r];
-//				r++;
-//			}
-//			d++;
-//		}
-//
-//		while (l < lSize)
-//		{
-//			dest[d++] = left[l++];
-//		}
-//		while (r < rSize)
-//		{
-//			dest[d++] = right[r++];
-//		}
 		(void) left;
 		(void) right;
 		(void) dest;
 	}
 
-	int *getJacobstahl(unsigned int n)
+	void getJacobstahl(X *jacobstahl, int n)
 	{
-		int jacobstahl[n];
-		if (jacobstahl <= 2)
-			return NULL;
-		jacobstahl[0] = 0;
-		jacobstahl[1] = 1;
-		for (int i = 2; i < n; i++)
+		int arr[n];
+		int i;
+		arr[0] = 0;
+		arr[1] = 1;
+		for (i = 2; i < n; i++)
 		{
-			jacobstahl[i] = jacobstahl[i - 1] + 2 * jacobstahl[i - 2];
+			arr[i] = arr[i - 1] + 2 * arr[i - 2];
+			if (arr[i] > n)
+			{
+				--i;
+				break;
+			}
+			if (arr[i] == n)
+				break;
 		}
-		return &jacobstahl;
+		if (n == i)
+			--i;
+		while (i > 2)
+			jacobstahl->push_back(arr[i--]);
 	}
 
+	virtual int getFromIndex(X list, int index)
+	{
+		(void) list;
+		return index;
+	}
 };

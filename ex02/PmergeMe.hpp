@@ -7,7 +7,6 @@
 #include <algorithm>
 #include <cstdlib>
 
-
 template <typename T>
 class PmergeMe
 {
@@ -35,6 +34,9 @@ public:
 		container.sortTuples();
 		container.mergeSortTuples(container.getContainer());
 		container.setMainChain();
+		container.sortPendChain();
+		container.checkStraggler();
+		container.printChain();
 	}
 
 private:
