@@ -1,6 +1,6 @@
 NAME = PmergeMe
 
-SRC = main.cpp PmergeMe.cpp
+SRC = main.cpp Tuple.cpp ListContainer.cpp
 
 CP = c++
 
