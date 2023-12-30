@@ -12,6 +12,7 @@ public:
 	VectorContainer(const VectorContainer &listContainer);
 	~VectorContainer();
 	VectorContainer &operator=(const VectorContainer &listContainer);
+
 	void setMainChain();
 	void sortPendChain();
 	void checkStraggler();

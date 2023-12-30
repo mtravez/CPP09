@@ -28,6 +28,8 @@ bool isYear(char *year, bool *leap)
 {
 	if (!Date::isNumber(year, false))
 		return false;
+	if (strlen(year) != 4)
+		throw (Date::WrongFormatException());
 	int y = atoi(year);
 	if (y < 0)
 		return false;
@@ -40,6 +42,8 @@ int getMonth(char *month)
 {
 	if (!month || !Date::isNumber(month, false))
 		return 0;
+	if (strlen(month) != 2)
+		throw (Date::WrongFormatException());
 	int m = atoi(month);
 	if (m <= 0 || m > 12)
 		return 0;
@@ -50,6 +54,8 @@ int getDay(char *day)
 {
 	if (!Date::isNumber(day, false))
 		return 0;
+	if (strlen(day) != 2)
+		throw (Date::WrongFormatException());
 	int d = atoi(day);
 	if (d <= 0 || d > 31)
 		return 0;

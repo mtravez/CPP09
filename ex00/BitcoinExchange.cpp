@@ -6,11 +6,17 @@ std::string BitcoinExchange::getDate(std::string string) {
 	char *p;
 	strncpy(data, string.c_str(), sizeof(data));
 	p = strtok(data, separator.c_str());
-	if (Date::isDateCorrect(p))
-		date.assign(p);
-	else
-	{
-		std::cerr << "Error: bad input => " << p << std::endl;
+	try {
+		if (Date::isDateCorrect(p))
+			date.assign(p);
+		else
+		{
+			std::cerr << "Error: bad input => " << p << std::endl;
+			return "";
+		}
+	}
+	catch (std::exception &e) {
+		std::cerr << e.what();
 		return "";
 	}
 	return date;

@@ -4,7 +4,7 @@ int main(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		std::cerr << argc << "Error: wrong number of characters\n";
+		std::cerr << "Error: wrong number of arguments\n";
 		return 1;
 	}
 

@@ -34,7 +34,7 @@ void RPN::doOperation(char c)
 			stack.push(b - a);
 			break;
 		case 3:
-			if (b == 0)
+			if (a == 0)
 				throw (WrongInputException());
 			stack.push(b / a);
 			break;

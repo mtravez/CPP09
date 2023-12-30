@@ -16,4 +16,16 @@ public:
 			return "WrongDateException: the given date is not valid";
 		}
 	};
+
+	class WrongFormatException : public std::exception
+	{
+	public:
+		virtual const char *what() const throw()
+		{
+			return "Error: date must be in format YYYY-MM-DD";
+		}
+	};
+private:
+	Date();
+	~Date();
 };
