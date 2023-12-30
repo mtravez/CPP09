@@ -47,6 +47,12 @@ void VectorContainer::mergeTuples(std::vector <std::pair<int, int> > left, std::
 }
 
 void VectorContainer::setMainChain(){
+	if (container.empty())
+	{
+		mainChain.push_back(holder[1]);
+		holder[0] = 0;
+		return;
+	}
 	unsigned int i = 1;
 	mainChain.push_back(container[0].second);
 	mainChain.push_back(container[0].first);
@@ -68,6 +74,8 @@ int VectorContainer::getFromIndex(std::vector<int> list, int index) {
 }
 
 void VectorContainer::sortPendChain() {
+	if (pendChain.empty() || pendChain.size() <= 1)
+		return;
 	std::vector<int> jacobstahl;
 	getJacobstahl(&jacobstahl, pendChain.size());
 

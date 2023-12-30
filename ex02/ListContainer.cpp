@@ -52,6 +52,12 @@ void ListContainer::mergeTuples(std::list <std::pair<int, int> > left, std::list
 }
 
 void ListContainer::setMainChain(){
+	if (container.empty())
+	{
+		mainChain.push_back(holder[1]);
+		holder[0] = 0;
+		return;
+	}
 	mainChain.push_back(container.front().second);
 	mainChain.push_back(container.front().first);
 	pendChain.push_back(-1);
@@ -85,8 +91,9 @@ int ListContainer::getFromIndex(std::list<int> list, int index) {
 	return *it;
 }
 
-
 void ListContainer::sortPendChain() {
+	if (pendChain.empty() || pendChain.size() <= 1)
+		return;
 	std::list<int> jacobstahl;
 	getJacobstahl(&jacobstahl, pendChain.size());
 
