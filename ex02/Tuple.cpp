@@ -18,5 +18,12 @@ void swapTuples(std::pair<int, int> &t)
 
 void printThing(int i)
 {
-	std::cout << "[" << i << "] ";
+	std::cout << i << " ";
+}
+
+void printArray(char **arr)
+{
+	for (int i = 0; arr && arr[i]; i++)
+		std::cout << arr[i] << " ";
+	std::cout << std::endl;
 }

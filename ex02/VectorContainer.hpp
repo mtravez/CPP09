@@ -3,7 +3,6 @@
 #include <iostream>
 #include "AConatiner.hpp"
 #include <list>
-#include <tuple>
 #include <utility>
 
 class VectorContainer : public AContainer<std::vector<std::pair<int, int> >, std::vector<int> >

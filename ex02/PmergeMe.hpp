@@ -6,6 +6,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cstdlib>
+#include <limits.h>
 
 template <typename T>
 class PmergeMe
@@ -30,14 +31,33 @@ public:
 
 	void pMergeMe(char **arr)
 	{
-		splitTuples(arr);
+		try{
+			splitTuples(arr);
+		}
+		catch (std::exception &e)
+		{
+			std::cerr << e.what();
+			return;
+		}
+		std::cout << "Before:\t";
+		printArray(arr);
 		container.sortTuples();
 		container.mergeSortTuples(container.getContainer());
 		container.setMainChain();
 		container.sortPendChain();
 		container.checkStraggler();
+		std::cout << "After:\t";
 		container.printChain();
 	}
+
+	class NotValidInputException : public std::exception
+	{
+	public:
+		virtual const char *what() const throw()
+		{
+			return "Error: wrong input\n";
+		}
+	};
 
 private:
 	bool isNumber(char *number)
@@ -59,8 +79,8 @@ private:
 		int i = 0;
 		while (arr && arr[i])
 		{
-			if (!isNumber(arr[i]) || atol(arr[i]) > INT32_MAX)
-				return false;
+			if (!isNumber(arr[i]) || atol(arr[i]) > INT_MAX)
+				throw (NotValidInputException());
 			i++;
 		}
 		return true;

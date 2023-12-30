@@ -3,7 +3,6 @@
 #include <iostream>
 #include <list>
 #include <vector>
-#include <tuple>
 #include <utility>
 #include <algorithm>
 #include "Tuple.hpp"
@@ -26,6 +25,7 @@ public:
 	void printChain()
 	{
 		std::for_each(mainChain.begin(), mainChain.end(), printThing);
+		std::cout << std::endl;
 	}
 
 	virtual void pushNumber(int nr){
