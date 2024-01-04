@@ -102,13 +102,15 @@ void ListContainer::sortPendChain() {
 //		std::cout << "hi\n";
 		int index = jacobstahl.back() - 1;
 		int nr = getFromIndex(pendChain, index);
+		int i = 0;
 		while (nr != -1)
 		{
-			int mainIndex = binarySearch(0, mainChain.size() - 1, nr, mainChain);
+			int mainIndex = binarySearch(0, index + i, nr, mainChain);
 			insertIndex(mainIndex, nr, mainChain);
 			changeIndex(index, -1, pendChain);
 			index--;
 			nr = getFromIndex(pendChain, index);
+			i++;
 		}
 		jacobstahl.pop_back();
 	}

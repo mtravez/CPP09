@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 	sorting1.pMergeMe(&(argv[1]));
 	clock_t endTime = clock();
 	double elapsedTime = static_cast<double>(endTime - startTime) * 1000000 / CLOCKS_PER_SEC;
-
+//
 	std::cout << "Time to process a range of " << argc - 1 << " elements with std::list : " << std::fixed << std::setprecision(5) << elapsedTime << " us\n";
 
 	PmergeMe<VectorContainer> sorting2;

@@ -83,13 +83,15 @@ void VectorContainer::sortPendChain() {
 	{
 		int index = jacobstahl.back() - 1;
 		int nr = getFromIndex(pendChain, index);
+		int i = 0;
 		while (nr != -1)
 		{
-			int mainIndex = binarySearch(0, mainChain.size() - 1, nr, mainChain);
+			int mainIndex = binarySearch(0, index + i, nr, mainChain);
 			mainChain.insert(mainChain.begin() + mainIndex, nr);
 			pendChain[index] = -1;
 			index--;
 			nr = getFromIndex(pendChain, index);
+			i++;
 		}
 		jacobstahl.pop_back();
 	}
